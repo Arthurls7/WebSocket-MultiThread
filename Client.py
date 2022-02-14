@@ -1,34 +1,41 @@
-import socket
+import socket   
+import threading
 
-IP = socket.gethostbyname(socket.gethostname())
-PORT = 8081
-ADDR = (IP, PORT)
-FORMAT = "utf-8"
+username = input("Enter your username: ")
+room = input("Enter the room: ")
+
+while room.isnumeric == False:
+    room = input("Invalid room, try another: ")
+    
+host = '127.0.0.1'
+port = 55555
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect((host, port))
+
+def recvMsg():
+    while True:
+        try:
+            message = client.recv(1024).decode('utf-8')
+
+            if message == "@username":
+                client.send(username.encode("utf-8"))
+            elif message == "@room":
+                client.send(room.encode("utf-8"))
+            else:
+                print(message)
+        except:
+            print("Error, closing connection")
+            client.close()
+            break
+
+def sendMsg():
+    while True:
+        message = f"{username}: {input('')}"
+        client.send(message.encode('utf-8'))
 
 def main():
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect(ADDR)
-
-    #recebe boas vindas
-    msg = client.recv(1024).decode(FORMAT)
-    print(msg)
-    msg = input()
-
-    #enviando o nome
-    client.send(msg.encode(FORMAT))
-    msg = client.recv(1024).decode(FORMAT)
-    print(msg)
-
-    msg = client.recv(1024).decode(FORMAT)
-    print(msg)
-    
-    while True:
-        msg = input()
-        if len(msg) > 1:
-            print("Insira apenas uma letra")
-        else:
-            client.send(msg.encode(FORMAT))
-            msg = client.recv(1024).decode(FORMAT)
-            print(msg)
+    threading.Thread(target=recvMsg).start()
+    threading.Thread(target=sendMsg).start()
 
 main()
