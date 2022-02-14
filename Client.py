@@ -2,7 +2,7 @@ import socket
 import threading
 
 username = input("Enter your username: ")
-room = input("Enter the room: ")
+room = input("Enter the room number: ")
 
 while room.isnumeric == False:
     room = input("Invalid room, try another: ")
