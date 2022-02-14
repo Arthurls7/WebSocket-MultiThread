@@ -4,9 +4,9 @@ import threading
 username = input("Enter your username: ")
 room = input("Enter the room number: ")
 
-while room.isnumeric == False:
+while room.isnumeric() == False:
     room = input("Invalid room, try another: ")
-    
+
 host = '127.0.0.1'
 port = 55555
 
