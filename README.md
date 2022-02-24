@@ -1,5 +1,8 @@
 # WebSocket-MultiThread
 Projeto da disciplina Redes de Computadores, para desenvolver algum programa utilizando os conceitos de sockets e multithread.
+Alunos: 
+- José Arthur Lopes Sabino
+- Denilson Bulhões da Rosa Silva
 
 #Server
 - Para rodar o servidor basta apenas abrir o arquivo Server.py, as dependências necessárias são do próprio python.
